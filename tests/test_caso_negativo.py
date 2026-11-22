@@ -55,7 +55,7 @@ def test_sugestao_borda_e_falha_servidor(page: Page, base_url: str):
     campo_descricao.fill("     ")
     expect(botao_buscar).to_be_disabled()
 
-    # 2. Simulação de falha na API (HTTP 500) para verificar resiliência da interface
+    # 2. Simulação de falha na API (HTTP 500) para verificar interface
     page.route("**/api/**", lambda route: route.fulfill(status=500, body="Internal Server Error"))
 
     campo_descricao.fill("passeio de jangada em maceio")

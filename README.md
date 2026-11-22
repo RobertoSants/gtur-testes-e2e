@@ -60,7 +60,7 @@ Com o backend e o frontend do GTur ativos, execute um dos comandos abaixo na rai
   ```
 - **Execução com gravação de vídeo:**
   ```powershell
-  pytest --video on
+  pytest --video on --slowmo 500
   ```
 
 Os artefatos gerados (capturas de tela de cada cenário, vídeos e o relatório consolidado `relatorio.html`) ficam salvos automaticamente na pasta `evidencias/`.
