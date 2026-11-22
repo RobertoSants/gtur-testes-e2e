@@ -65,3 +65,37 @@ def test_sugestao_borda_e_falha_servidor(page: Page, base_url: str):
     mensagem_erro = page.locator(".sp-mensagem-semresultado")
     expect(mensagem_erro).to_be_visible(timeout=10000)
     expect(mensagem_erro).to_contain_text("Ops! Não consegui me conectar ao servidor. Tente novamente.")
+
+
+
+def test_cadastro_senhas_nao_coincidem(page: Page, base_url: str, output_path):
+    """
+    Cenário 2D (Caso Negativo - Senhas Diferentes no Cadastro):
+    - Ação inicial: Acessar a página de cadastro (/cadastro).
+    - Etapas: Preencher os campos obrigatórios com dados válidos,
+      exceto a confirmação de senha, que será diferente da senha original.
+    - Resultado observável: O sistema bloqueia o cadastro e exibe
+      o alerta 'As senhas não coincidem'.
+    """
+    page.goto(f"{base_url}/cadastro")
+
+    page.locator('input[name="firstName"]').fill("Usuario")
+    page.locator('input[name="lastName"]').fill("Teste")
+    page.locator('input[name="email"]').fill("usuario.teste@example.com")
+    page.locator('input[type="tel"]').fill("+5582999999999")
+    page.locator('input[name="senha"]').fill("SenhaTeste123")
+    page.locator('input[name="confirmarSenha"]').fill("SenhaDiferente123")
+
+    page.locator("button.submit-btn").click()
+
+    alerta_erro = page.locator(".alert.alert-error")
+
+    expect(alerta_erro).to_be_visible()
+    expect(alerta_erro).to_contain_text("As senhas não coincidem")
+
+    page.evaluate("window.scrollTo(0, 0)")
+
+    page.screenshot(
+        path=f"{output_path}/cadastro-senhas-diferentes.png",
+        full_page=True
+    )

@@ -90,6 +90,11 @@ Os artefatos gerados (capturas de tela de cada cenário, vídeos e o relatório 
   - **Ação inicial:** Acessar a página de recomendação (`/sugestao`).
   - **Etapas:** Inserir apenas espaços em branco no campo de busca (verificando o bloqueio do botão) e, em seguida, interceptar a chamada à API simulando erro interno `HTTP 500` ao submeter uma busca válida.
   - **Resultado observável esperado:** O botão **Buscar passeios** permanece desabilitado para entrada composta apenas por espaços e, diante da falha simulada no servidor, a interface exibe a mensagem amigável *"Ops! Não consegui me conectar ao servidor. Tente novamente."* sem quebra visual.
+- **2D — Senhas diferentes no cadastro (`test_cadastro_senhas_nao_coincidem`):**
+  - **Ação inicial:** Acessar a página de cadastro (`/cadastro`).
+  - **Etapas:** Preencher nome, sobrenome, e-mail válido, telefone válido, senha com pelo menos oito caracteres e confirmação de senha diferente. Em seguida, acionar o botão **Criar Conta**.
+  - **Resultado observável esperado:** A validação do frontend identifica a divergência entre as senhas, impede o envio dos dados à API e exibe o alerta *"As senhas não coincidem"*.
+
 
 ---
 
